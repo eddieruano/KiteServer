@@ -43,7 +43,6 @@ app.post('/api/send', function(req,res){
   var delay = parseInt(req.body.delay);
   var queueID = parseInt(req.body.queueID);
 
-
   //set start
   var start = new Date(Date.now());
   var sendTime = new Date(start.getTime() + (delay * 1000)); 
