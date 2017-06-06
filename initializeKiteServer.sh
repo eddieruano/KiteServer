@@ -1,5 +1,5 @@
 #!/bin/bash
 echo "Initializing KiteServer"
 echo "Starting mongo"
-terminal -e mongod
-terminal -e node ~/Desktop/KiteServer/app.js
+open -a Terminal "mongod"
+open -a Terminal "node ~/Desktop/KiteServer/app.js"
