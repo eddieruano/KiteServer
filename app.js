@@ -5,12 +5,16 @@ var mongoose = require('mongoose');
 var scheduler = require('node-schedule');
 var imess = require("iMessageModule");
 
-var message;
-var recipient;
-// Queue Array to be filled with scheduler job identifiers
+
+// Flag Variables
+var delayFlag = false;
+// Queue Variables
 var msgQueueIDs = [];
 var numberOfQueuedMsgs = 0;
 app.use(bodyParser.json());
+// Message Variables
+var message;
+var recipient;
 // Conversations = require('./models/conversations');
 // Connect
 // mongoose.connect('mongodb://localhost/kiteVault');
@@ -35,35 +39,43 @@ app.post('/api/send', function(req,res){
   message = req.body.message;
    
   var delay = parseInt(req.body.delay);
-  var queueID = parseInt(req.body.queueID)
+  var queueID = parseInt(req.body.queueID);
+
 
   //set start
   var start = new Date(Date.now());
-    var sendTime = new Date(start.getTime() + (delay * 1000)); 
-    if (delay != 0)
-    {
-      // Save the scheduleID
-      msgQueueIDs.push(queueID)
-      numberOfQueuedMsgs += 1
-      scheduler.scheduleJob(queueID, sendTime, function(err){
-        if (err) {
-          throw err;
-        }
-        if (delay > 0) {
-          var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
-          message = message + delayed;
-        }
-          deliver(recipient,message);
-          res.json({status: "Success", delayed: delay});
-        });
-    }
-    else
-    {
-      deliver(recipient,message);
-      console.log("Message Sending Now");
-      console.log("Recipient: "+ recipient);
-      res.json({status: "Success", delayed: delay});
-    }
+  var sendTime = new Date(start.getTime() + (delay * 1000)); 
+  if (delay != 0)
+  {
+    // Trip the delay Flag
+    delayFlag = true;
+    // Save the scheduleID
+    
+    msgQueueIDs.push(queueID);
+    numberOfQueuedMsgs += 1;
+    scheduler.scheduleJob(queueID, sendTime, function(err){
+      if (err) {
+        throw err;
+      }
+      if (delay > 0) {
+        var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
+        message = message + delayed;
+      }
+        deliver(recipient,message);
+        res.json({status: "Success", delayed: delay});
+      });
+  }
+  else
+  {
+    delayFlag = false;
+    deliver(recipient,message);
+    console.log("Message Sending Now");
+    console.log("Recipient: "+ recipient);
+    console.log("Message Contents: "+ message);
+    console.log("Delay: "+ delay);
+    console.log("QueueID: "+ queueID);
+    res.json({status: "Success", delayed: delay});
+  }
 });
 
 
