@@ -50,32 +50,29 @@ app.post('/api/send', function(req,res){
     // Trip the delay Flag
     delayFlag = true;
     // Save the scheduleID
-    
     msgQueueIDs.push(queueID);
     numberOfQueuedMsgs += 1;
     scheduler.scheduleJob(queueID, sendTime, function(err){
       if (err) {
         throw err;
       }
-      if (delay > 0) {
-        var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
-        message = message + delayed;
-      }
-        deliver(recipient,message);
-        res.json({status: "Success", delayed: delay});
+      var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
+      message = message + delayed;
+      deliver(recipient,message);
+      res.json({status: "Success", delayed: delay});
       });
   }
   else
   {
     delayFlag = false;
     deliver(recipient,message);
-    console.log("Message Sending Now");
-    console.log("Recipient: "+ recipient);
-    console.log("Message Contents: "+ message);
-    console.log("Delay: "+ delay);
-    console.log("QueueID: "+ queueID);
     res.json({status: "Success", delayed: delay});
   }
+  console.log("Message Sending Now");
+  console.log("Recipient: "+ recipient);
+  console.log("Message Contents: "+ message);
+  console.log("Delay: "+ delay);
+  console.log("QueueID: "+ queueID);
 });
 
 
