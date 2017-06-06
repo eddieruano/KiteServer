@@ -96,7 +96,7 @@ app.post('/api/undo', function(req,res){
     throw err;
   }
    scheduler.cancel();
-   res.json({status: "Success Cancel", queueID: queueID, messageText: });
+   res.json({status: "Success Cancel", queueID: queueID, messageText: "Lol"});
 });
 
 function deliver(recipient, message){
