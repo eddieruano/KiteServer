@@ -60,6 +60,8 @@ app.post('/api/send', function(req,res){
     else
     {
       deliver(recipient,message);
+      console.log("Message Sending Now");
+      console.log("Recipient: "+ recipient);
       res.json({status: "Success", delayed: delay});
     }
 });
@@ -74,7 +76,7 @@ app.post('/api/undo', function(req,res){
   {
     msgJob = schedule.scheduledJobs[queueID];
     msgJob.cancel()
-    console.log("Message canceled")
+    console.log("Message canceled");
   }
   else if (command == "changeDelay")
   {
