@@ -9,12 +9,14 @@ var imess = require("iMessageModule");
 // Flag Variables
 var delayFlag = false;
 // Queue Variables
+var job;
 var msgQueueIDs = [];
 var numberOfQueuedMsgs = 0;
 app.use(bodyParser.json());
 // Message Variables
 var message;
 var recipient;
+
 // Conversations = require('./models/conversations');
 // Connect
 // mongoose.connect('mongodb://localhost/kiteVault');
@@ -52,7 +54,7 @@ app.post('/api/send', function(req,res){
     // Save the scheduleID
     msgQueueIDs.push(queueID);
     numberOfQueuedMsgs += 1;
-    scheduler.scheduleJob(queueID, sendTime, function(err){
+    job = scheduler.scheduleJob(sendTime, function(err){
       if (err) {
         throw err;
       }
@@ -73,6 +75,7 @@ app.post('/api/send', function(req,res){
   console.log("Message Contents: "+ message);
   console.log("Delay: "+ delay);
   console.log("QueueID: "+ queueID);
+  console.log("SendTime: "+ sendTime);
 });
 
 
