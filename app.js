@@ -75,7 +75,7 @@ app.post('/api/send', function(req,res){
     sendTime = new Date(startTime.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
-    messQueue.queueAdd(messPack);
+    //messQueue.queueAdd(messPack);
   }
   else {
     // Set status
@@ -92,7 +92,7 @@ app.post('/api/send', function(req,res){
   console.log("MessPack Print: ");
   messPack.MessagePrint(messPack);
   console.log("MessageQueue Print: ")
-  messQueue.queuePrint(messQueue);
+  //messQueue.queuePrint(messQueue);
   // Begin Send logic
   // if (delay != 0)
   // {
