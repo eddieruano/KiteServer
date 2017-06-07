@@ -88,15 +88,20 @@ app.post('/api/send', function(req,res){
     // Create the instance but don't add it to the queue
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
   }
+  if (delay == 0)
+  {
+    deliver(recipient, message)
+    {
+      imess.sendMessage(recipient, message);
+    }
+    res.json(
+      {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
+      );
+  }
+  else
+  {
 
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-  console.log("MessPack Print: ");
-  messPack.messagePrint(messPack);
-  console.log("MessageQueue Print: ");
-  messQueue.queuePrint(messQueue);
-
-  var text = messQueue.messageQueueArray[counter - 1];
-  console.log(text);
+  }
   // Begin Send logic
   // if (delay != 0)
   // {
