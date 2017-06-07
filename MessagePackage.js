@@ -22,7 +22,7 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	MessagePackage.prototype.messagePrint = function(mess) {
 		console.log("Status: " + mess.Status);
 		console.log("Recipient: " + mess.messageRecipient);
-		console.log("Text: " + mess.messageText;
+		console.log("Text: " + mess.messageText);
 		console.log("QueueID: " + mess.messageQueueID);
 		console.log("Time In: " + mess.messageTimeIn);
 		console.log("Time Out: " + mess.messageTimeOut);
