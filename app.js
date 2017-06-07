@@ -95,7 +95,7 @@ app.post('/api/send', function(req,res){
   console.log("MessageQueue Print: ");
   messQueue.queuePrint(messQueue);
 
-  messPack.messagePrint(messQueue.messageQueueArray[messQueue.messageQueueSize])
+  messPack.messagePrint(messQueue.messageQueueArray[messQueue.messageQueueSize -1])
   // Begin Send logic
   // if (delay != 0)
   // {
