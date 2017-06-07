@@ -183,6 +183,7 @@ app.post('/api/undo', function(req,res){
 
 function deliver(recipient, message){
    iMessageMod.sendMessage(recipient, message);
+   console.log("Sentttt");
 }
 
 function renderQueueID(message){
