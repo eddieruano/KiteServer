@@ -18,31 +18,31 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	this.messageVerbose = verFlag;
 	this.messageWordCount = (text == null) ? null : count(text);
 
-	this.messagePrint = function(obj) {
-		console.log("Status: " +  obj.Status);
-		console.log("Recipient: " +  obj.messageRecipient);
-		console.log("Text: " +  obj.messageText);
-		console.log("QueueID: " +  obj.messageQueueID);
-		console.log("Time In: " +  obj.messageTimeIn);
-		console.log("Time Out: " +  obj.messageTimeOut);
-		console.log("Delay: " +  obj.messageDelay);
-		console.log("Verbose: " +  obj.messageVerbose);
-		console.log("Word Count: " +  obj.messageWordCount);
-	}
+	// this.messagePrint = function(obj) {
+	// 	console.log("Status: " +  obj.Status);
+	// 	console.log("Recipient: " +  obj.messageRecipient);
+	// 	console.log("Text: " +  obj.messageText);
+	// 	console.log("QueueID: " +  obj.messageQueueID);
+	// 	console.log("Time In: " +  obj.messageTimeIn);
+	// 	console.log("Time Out: " +  obj.messageTimeOut);
+	// 	console.log("Delay: " +  obj.messageDelay);
+	// 	console.log("Verbose: " +  obj.messageVerbose);
+	// 	console.log("Word Count: " +  obj.messageWordCount);
+	// }
 }
 
 // // adds an object to the queue
-// MessagePackage.prototype.messagePrint = function(mess) {
-// 	console.log("Status: " + mess.Status);
-// 	console.log("Recipient: " + mess.messageRecipient);
-// 	console.log("Text: " + mess.messageText);
-// 	console.log("QueueID: " + mess.messageQueueID);
-// 	console.log("Time In: " + mess.messageTimeIn);
-// 	console.log("Time Out: " + mess.messageTimeOut);
-// 	console.log("Delay: " + mess.messageDelay);
-// 	console.log("Verbose: " + mess.messageVerbose);
-// 	console.log("Word Count: " + mess.messageWordCount);
-// };
+MessagePackage.prototype.messagePrint = function(mess) {
+	console.log("Status: " + mess.Status);
+	console.log("Recipient: " + mess.messageRecipient);
+	console.log("Text: " + mess.messageText);
+	console.log("QueueID: " + mess.messageQueueID);
+	console.log("Time In: " + mess.messageTimeIn);
+	console.log("Time Out: " + mess.messageTimeOut);
+	console.log("Delay: " + mess.messageDelay);
+	console.log("Verbose: " + mess.messageVerbose);
+	console.log("Word Count: " + mess.messageWordCount);
+};
 // export the class
 //exports.messagePrint = MessagePackage.messagePrint;
 module.exports = MessagePackage;
