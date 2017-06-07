@@ -18,7 +18,7 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	this.messageVerbose = verFlag;
 	this.messageWordCount = (text == null) ? null : count(text);
 
-	this.messagePrint(obj) = function() {
+	this.messagePrint = function(obj) {
 		console.log("Status: " +  obj.Status);
 		console.log("Recipient: " +  obj.messageRecipient);
 		console.log("Text: " +  obj.messageText);
