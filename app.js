@@ -1,37 +1,42 @@
+/**
+ * [Queue, a simple queue structure i wrote to queue messages in.]
+ * @param {[type]} obj [object to enqueue]
+ */
+  //## Initialize Top Modules ##//
 var express = require('express');
 var app = express();
-
 var bodyParser = require('body-parser');
-//var mongoose = require('mongoose');
 var scheduler = require('node-schedule');
-var imess = require("iMessageModule");
+var iMessageMod = require("iMessageModule");
+  // Begin Custom modules
+var MessPackage = require('./MessagePackage.js').MessagePackage;
 
-// Flag Variables
-var delayFlag = false;
-// Queue Variables
-var jobs;
-var msgQueueIDs = [];
-var numberOfQueuedMsgs = 0;
-// use body parser so we can get info from POST and/or URL parameters
-//app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-// Message Variables
-var message;
-var recipient;
-
+  //!!################### Initialize Middleware Express ###################!!//
 var port = process.env.PORT || 9000;    // create, sign, and verify tokens
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: false }));
+  //!!################### Initialize Database Mongooose ###################!!//
+//var mongoose = require('mongoose'); 
 //mongoose.connect(config.database);      // connect to database
 //app.set('superSecret', config.secret);  // secret variable
+//Conversations = require('./models/conversations');
+  // Connect
+//mongoose.connect('mongodb://localhost/kiteVault');
+//var db = mongoose.connection;
 
-// Conversations = require('./models/conversations');
-// Connect
-// mongoose.connect('mongodb://localhost/kiteVault');
-// var db = mongoose.connection;
+  //!!################### Initialize Main Scheduler     ###################!!//
 
+  //!!################### Initialize MessagePackage     ###################!!//
+//var messPack = new MessagePackage();   // one instance of a message
+  //!!################### Initialize Main MessageQueue  ###################!!//
+var messQueue = new MessageQueue();
+
+
+  //!!################### Initialize Root API GET ###################!!//
 app.get('/', function(req, res){
    res.send('Wrong command. Use /api/');
 });
-
+  //!!################### Initialize Database GETS ###################!!//
 // app.get('/api/conversations', function(req, res){
 //    Conversations.getConversations(function(err, conversations){
 //       if(err){
@@ -42,48 +47,83 @@ app.get('/', function(req, res){
 //    });
 // });
 
-app.post('/api/send', function(req,res){
-  recipient = req.body.recipient;
-  message = req.body.payload;
+// Get information on the queue //
+//app.get('/api/getQueue', function(req, res){
 
-  var delay = parseInt(req.body.delay);
-  var queueID = parseInt(req.body.queueID);
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-  console.log(req);
-  //set start
+
+//});
+  //!!################### Initialize Main API Send  ###################!!//
+app.post('/api/send', function(req,res){
+  var messPack;
+  // Save the time at which this message was received
   var start = new Date(Date.now());
-  var sendTime = new Date(start.getTime() + (delay * 1000)); 
-  if (delay != 0)
-  {
-    // Trip the delay Flag
-    delayFlag = true;
-    // Save the scheduleID
-    msgQueueIDs.push(queueID);
-    numberOfQueuedMsgs += 1;
-    job = scheduler.scheduleJob(sendTime, function(err){
-      if (err) {
-        throw err;
-      }
-      var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
-      message = message + delayed;
-      //deliver(recipient,message);
+  // Get all relevant data from the post
+  var status;
+  var recipient = req.body.recipient;
+  var message = req.body.payload;
+  var delay = parseInt(req.body.delay);
+  var verbose = req.body.verbose;
+  var queueID;
+  var sendTime; 
+  // Create a queue ID based on recipient and time
+  if (delay > 0) {
+    status = "Queued"
+    // Creates a new QueueID for the message package
+    queueID = renderQueueID(recipient, message, delay);
+    // Calculate the new time to send
+    sendTime = new Date(start.getTime() + (delay * 1000)); 
+    // Create instance and add to Queue
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messQueue.queueAdd(messPack);
+  }
+  else {
+    // Set status
+    status = "Direct"
+    // Set to ignore on the queueID
+    queueID = -1;
+    // Sending the message now essentially
+    sendTime = startTime;
+    // Create the instance but don't add it to the queue
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+  }
+
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  console.log("MessPack Print: ");
+  messPack.MessagePrint(messPack);
+  console.log("MessageQueue Print: ")
+  messQueue.queuePrint(messQueue);
+  // Begin Send logic
+  // if (delay != 0)
+  // {
+  //   // Trip the delay Flag
+  //   delayFlag = true;
+  //   // Save the scheduleID
+  //   msgQueueIDs.push(queueID);
+  //   numberOfQueuedMsgs += 1;
+  //   job = scheduler.scheduleJob(sendTime, function(err){
+  //     if (err) {
+  //       throw err;
+  //     }
+  //     var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
+  //     message = message + delayed;
+  //     //deliver(recipient,message);
       
-      });
-  }
-  else
-  {
-    delayFlag = false;
-    //deliver(recipient,message);
-  }
+  //     });
+  // }
+  // else
+  // {
+  //   delayFlag = false;
+  //   //deliver(recipient,message);
+  // }
   res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
-  console.log("###########################################################");
-  console.log("Message Sending Now");
-  console.log("Recipient: "+ recipient);
-  console.log("Message Contents: "+ message);
-  console.log("Delay: "+ delay);
-  console.log("QueueID: "+ queueID);
-  console.log("SendTime: "+ sendTime);
-  console.log(msgQueueIDs);
+  // console.log("###########################################################");
+  // console.log("Message Sending Now");
+  // console.log("Recipient: "+ recipient);
+  // console.log("Message Contents: "+ message);
+  // console.log("Delay: "+ delay);
+  // console.log("QueueID: "+ queueID);
+  // console.log("SendTime: "+ sendTime);
+  // //console.log(msgQueueIDs);
   console.log("");
 });
 
