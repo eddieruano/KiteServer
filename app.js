@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var scheduler = require('node-schedule');
 var iMessageMod = require("iMessageModule");
   // Begin Custom modules
-var MessPackage = require('./MessagePackage.js').MessagePackage;
+var MessagePackage = require('./MessagePackage.js').MessagePackage;
 var MessageQueue= require('./MessageQueue.js').MessageQueue;
 
   //!!################### Initialize Middleware Express ###################!!//
@@ -31,6 +31,7 @@ app.use(bodyParser.json());
 //var messPack = new MessagePackage();   // one instance of a message
   //!!################### Initialize Main MessageQueue  ###################!!//
 var messQueue = new MessageQueue();
+var messPack = mew MessagePackage(null, null, null, null, null, null, null, null);
 
 
   //!!################### Initialize Root API GET ###################!!//
@@ -74,7 +75,7 @@ app.post('/api/send', function(req,res){
     // Calculate the new time to send
     sendTime = new Date(start.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessPackage(status, recipient, message, queueID, startTime, sendTime, delay)
     messQueue.queueAdd(messPack);
   }
   else {
@@ -85,7 +86,7 @@ app.post('/api/send', function(req,res){
     // Sending the message now essentially
     sendTime = startTime;
     // Create the instance but don't add it to the queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessPackage(status, recipient, message, queueID, startTime, sendTime, delay)
   }
 
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
