@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 //var messPack = new MessagePackage();   // one instance of a message
   //!!################### Initialize Main MessageQueue  ###################!!//
 var messQueue = new MessageQueue();
-var messPack = mew MessagePackage(null, null, null, null, null, null, null, null);
+var messPack = new MessagePackage(null, null, null, null, null, null, null, null);
 
 
   //!!################### Initialize Root API GET ###################!!//
