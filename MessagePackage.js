@@ -44,5 +44,5 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 // 	console.log("Word Count: " + mess.messageWordCount);
 // };
 // export the class
-exports.messagePrint = messagePrint;
+exports.messagePrint = MessagePackage.messagePrint;
 exports.MessagePackage = MessagePackage;
