@@ -8,24 +8,24 @@
  * @param {[type]} obj [object to enqueue]
  */
 
-var MessPackage = require('./MessagePackage.js').MessagePackage;
+var MessPackage = require('./MessagePackage.js');
 
 function MessageQueue() {
 	this.messageQueueSize = 0;
 	this.messageQueueArray = [];
 }
 
-// prints MessageQueue information
-MessageQueue.prototype.queuePrint = function(queue) {
-	console.log("Size: " + queue.messageQueueSize);
-	console.log("Contents: " + queue.messageQueueArray);
-};
+// // prints MessageQueue information
+// MessageQueue.prototype.queuePrint = function(queue) {
+// 	console.log("Size: " + queue.messageQueueSize);
+// 	console.log("Contents: " + queue.messageQueueArray);
+// };
 
-MessageQueue.prototype.queueAdd = function(queue, mess) {
-	console.log("Size: " + queue.messageQueueSize);
-	console.log("Contents: " + queue.messageQueueArray);
-	queue.messageQueueArray.push(mess);
-	queue.messageQueueSize += 1;
-};
+// MessageQueue.prototype.queueAdd = function(queue, mess) {
+// 	console.log("Size: " + queue.messageQueueSize);
+// 	console.log("Contents: " + queue.messageQueueArray);
+// 	queue.messageQueueArray.push(mess);
+// 	queue.messageQueueSize += 1;
+// };
 // export the class
 exports.MessageQueue = MessageQueue;
