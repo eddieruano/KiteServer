@@ -1,6 +1,7 @@
-on run argv
-	tell application "Messages"
-		quit
+on run
+	tell Application "Messages"
+		activate
+		return get every service
 	end tell
-end:
+end run
 
