@@ -45,10 +45,11 @@ app.get('/', function(req, res){
 app.post('/api/send', function(req,res){
   recipient = req.body.recipient;
   message = req.body.message;
-  console.log(req);
+
   var delay = parseInt(req.body.delay);
   var queueID = parseInt(req.body.queueID);
-
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  console.log(req);
   //set start
   var start = new Date(Date.now());
   var sendTime = new Date(start.getTime() + (delay * 1000)); 
@@ -65,16 +66,17 @@ app.post('/api/send', function(req,res){
       }
       var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
       message = message + delayed;
-      deliver(recipient,message);
+      //deliver(recipient,message);
       
       });
   }
   else
   {
     delayFlag = false;
-    deliver(recipient,message);
+    //deliver(recipient,message);
   }
   res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
+  console.log("###########################################################");
   console.log("Message Sending Now");
   console.log("Recipient: "+ recipient);
   console.log("Message Contents: "+ message);
