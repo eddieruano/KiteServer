@@ -100,10 +100,11 @@ app.post('/api/send', function(req,res){
     sendTime = startTime;
     // Create the instance but don't add it to the queue
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
-    deliver(recipient, message, function(){
+    deliver(recipient, message, function(err){
         if (err) {
           console.log(err);
         }
+        deliver(recipient,message);
         res.json(
         {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
         );
