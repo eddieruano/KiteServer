@@ -72,7 +72,7 @@ app.post('/api/send', function(req,res){
     // Creates a new QueueID for the message package
     queueID = renderQueueID(recipient, message, delay);
     // Calculate the new time to send
-    sendTime = new Date(start.getTime() + (delay * 1000)); 
+    sendTime = new Date(startTime.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
     messQueue.queueAdd(messPack);
