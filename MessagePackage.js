@@ -2,7 +2,7 @@
  * [MessPackage holds together a message payload]
  * @param {[type]} obj [object to enqueue]
  */
-var count = require('word-count')
+//var count = require('word-count')
 /**
  * [Constructor]
  * @param {[type]} obj [object to enqueue]
@@ -16,7 +16,7 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	this.messageTimeOut = t_out;
 	this.messageDelay  = (delay == null) ? null : delay;
 	this.messageVerbose = verFlag;
-	this.messageWordCount = (text == null) ? null : count(text);
+	//this.messageWordCount = (text == null) ? null : count(text);
 }
 
 // adds an object to the queue
@@ -29,7 +29,7 @@ MessagePackage.prototype.messagePrint = function(mess) {
 	console.log("Time Out: " + mess.messageTimeOut);
 	console.log("Delay: " + mess.messageDelay);
 	console.log("Verbose: " + mess.messageVerbose);
-	console.log("Word Count: " + mess.messageWordCount);
+	//console.log("Word Count: " + mess.messageWordCount);
 };
 // export the class
 exports.MessagePackage = MessagePackage;
