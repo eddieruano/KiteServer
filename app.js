@@ -74,7 +74,7 @@ app.post('/api/send', function(req,res){
     delayFlag = false;
     deliver(recipient,message);
   }
-  res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString, queueIDNum, queueID});
+  res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
   console.log("Message Sending Now");
   console.log("Recipient: "+ recipient);
   console.log("Message Contents: "+ message);
