@@ -27,7 +27,8 @@ MessageQueue.prototype.queuePrint = function(queue) {
 MessageQueue.prototype.queueAdd = function(queue, obj) {
 	console.log("Size: " + queue.messageQueueSize);
 	console.log("Contents: " + queue.messageQueueArray);
-	queue.messageQueueArray.push(obj)
+	queue.messageQueueArray.push(obj);
+	console.log(obj.messageStatus)
 	queue.messageQueueSize += 1;
 };
 // export the class
