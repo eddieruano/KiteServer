@@ -30,9 +30,9 @@ app.use(bodyParser.json());
   //!!################### Initialize MessagePackage     ###################!!//
 //var messPack = new MessagePackage();   // one instance of a message
   //!!################### Initialize Main MessageQueue  ###################!!//
-var messQueue = new MessageQueue();
-var messPack = new MessagePackage(null, null, null, null, null, null, null, null);
 
+var messPack = new MessagePackage(null, null, null, null, null, null, null, null);
+var messQueue = new MessageQueue();
 
   //!!################### Initialize Root API GET ###################!!//
 app.get('/', function(req, res){
