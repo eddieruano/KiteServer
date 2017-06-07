@@ -9,8 +9,8 @@ var bodyParser = require('body-parser');
 var scheduler = require('node-schedule');
 var iMessageMod = require("iMessageModule");
   // Begin Custom modules
-var MessagePackage = require('./MessagePackage.js');
-var MessageQueue= require('./MessageQueue.js');
+var MessagePackage = require('./MessagePackage');
+var MessageQueue = require('./MessageQueue');
 
   //!!################### Initialize Middleware Express ###################!!//
 var port = process.env.PORT || 9000;    // create, sign, and verify tokens
