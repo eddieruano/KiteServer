@@ -58,6 +58,7 @@ var counter = 0;
 app.post('/api/send', function(req,res){
   // Save the time at which this message was received
   var startTime = new Date(Date.now());
+  console.log(req);
   // Get all relevant data from the post
   var status;
   var recipient = req.body.recipient;
@@ -83,7 +84,7 @@ app.post('/api/send', function(req,res){
     messPack.messagePrint(messPack);
     
     // SCHEDULE THE JOB
-    messPack.queueID = scheduler.scheduleJob(messPack.sendTime, function(y){
+    messPack.queueID = scheduler.scheduleJob(sendTime, function(){
       console.log("Sent Message: " + this.name);
       deliver(messPack.messageRecipient, messPack.messageText);
     });
