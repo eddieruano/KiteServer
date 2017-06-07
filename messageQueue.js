@@ -31,4 +31,4 @@ function MessageQueue(obj) {
 // 	queue.messageQueueSize += 1;
 // };
 // export the class
-exports.MessageQueue = MessageQueue;
+module.exports = MessageQueue;

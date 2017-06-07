@@ -45,4 +45,4 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 // };
 // export the class
 //exports.messagePrint = MessagePackage.messagePrint;
-exports.MessagePackage = MessagePackage;
+module.exports = MessagePackage;
