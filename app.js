@@ -149,37 +149,35 @@ app.post('/api/undo', function(req,res){
   var command = req.body.command;
   var queueID = req.body.queueID;
   var my_job = req.body.queueID.toString();
+  var n_delay = req.body.delay;
+  var startTime = new Date(Date.now());
+  var sendTime = new Date(startTime.getTime() + (delay * 1000)); 
+  var sendNow = new Date(startTime.getTime() + (3 * 1000)); 
+
   if (command == "cancel")
   {
     msgJob = scheduler.scheduledJobs[queueID];
     msgJob.cancel();
+    res.json({status: "Cancelled", jobNum: my_job});
     console.log("Message canceled");
   }
   else if (command == "changeDelay")
   {
-
+    msgJob = scheduler.scheduledJobs[queueID];
+    msgJob.reschedule(sendTime);
+    res.json({status: "Rescheduled", jobNum: my_job, sendTime: sendTime});
   }
   else if (command == "sendNow")
   {
-
+    msgJob = scheduler.scheduledJobs[queueID];
+    msgJob.reschedule(sendNow);
+    res.json({status: "Rescheduled", jobNum: my_job, sendTime: sendNow});
   }
   else
   {
     console.log("Error with command");
   }
-  // reformulate the queue
-  for(var i = msgQueueIDs.length - 1; i >= 0; i--) {
-    if(array[i] === queueID) {
-       array.splice(i, 1);
-    }
-  }
-  numberOfQueuedMsgs--;
-  if (err)
-  {
-    throw err;
-  }
-  res.json({status: "Success", message: message, delayed: delay, jobNum: my_job, queueIDNum: queueID});
-  console.log(msgQueueIDs);
+  
 });
 
 function deliver(recipient, message){
