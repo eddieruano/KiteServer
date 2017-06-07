@@ -1,10 +1,10 @@
 var express = require('express');
 var app = express();
+
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+//var mongoose = require('mongoose');
 var scheduler = require('node-schedule');
 var imess = require("iMessageModule");
-
 
 // Flag Variables
 var delayFlag = false;
@@ -12,10 +12,16 @@ var delayFlag = false;
 var job;
 var msgQueueIDs = [];
 var numberOfQueuedMsgs = 0;
+// use body parser so we can get info from POST and/or URL parameters
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Message Variables
 var message;
 var recipient;
+
+var port = process.env.PORT || 8080;    // create, sign, and verify tokens
+//mongoose.connect(config.database);      // connect to database
+//app.set('superSecret', config.secret);  // secret variable
 
 // Conversations = require('./models/conversations');
 // Connect
@@ -77,7 +83,6 @@ app.post('/api/send', function(req,res){
   console.log("SendTime: "+ sendTime);
 });
 
-
 app.post('/api/undo', function(req,res){
   // Save the command and the send id
   var command = req.body.command
@@ -116,5 +121,5 @@ function deliver(recipient, message){
    imess.sendMessage(recipient, message);
 }
 
-app.listen(9000);
+app.listen(port);
 console.log('Started Service');

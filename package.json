@@ -1,7 +1,8 @@
 {
   "name": "kitemail",
   "version": "1.0.0",
-  "description": "kitemail server",
+  "private": true,
+  "description": "Kitemail Server",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
