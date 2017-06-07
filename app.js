@@ -44,7 +44,7 @@ app.get('/', function(req, res){
 
 app.post('/api/send', function(req,res){
   recipient = req.body.recipient;
-  message = req.body.message;
+  message = req.body.payload;
 
   var delay = parseInt(req.body.delay);
   var queueID = parseInt(req.body.queueID);
