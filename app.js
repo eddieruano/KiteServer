@@ -74,7 +74,7 @@ app.post('/api/send', function(req,res){
     // Calculate the new time to send
     sendTime = new Date(startTime.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay);
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
     //messQueue.queueAdd(messPack);
   }
   else {
@@ -85,7 +85,7 @@ app.post('/api/send', function(req,res){
     // Sending the message now essentially
     sendTime = startTime;
     // Create the instance but don't add it to the queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay);
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
   }
 
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
