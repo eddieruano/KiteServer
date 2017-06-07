@@ -88,12 +88,13 @@ app.post('/api/send', function(req,res){
       console.log("R: " + messPack.messageRecipient);
       console.log("T: " + messPack.messageText);
       console.log("Sent Message: " + this.name);
+      console.log("Q" + messPack.queueID);
 
       deliver(messPack.messageRecipient, messPack.messageText);
     });
     messQueue.queueAdd(messQueue, messPack);
     res.json(
-        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
+        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: messPack.queueID}
         );
   }
   else 
