@@ -9,7 +9,7 @@ var imess = require("iMessageModule");
 // Flag Variables
 var delayFlag = false;
 // Queue Variables
-var job;
+var jobs;
 var msgQueueIDs = [];
 var numberOfQueuedMsgs = 0;
 // use body parser so we can get info from POST and/or URL parameters
@@ -66,28 +66,29 @@ app.post('/api/send', function(req,res){
       var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
       message = message + delayed;
       deliver(recipient,message);
-      res.json({status: "Success", delayed: delay});
+      
       });
   }
   else
   {
     delayFlag = false;
     deliver(recipient,message);
-    res.json({status: "Success", delayed: delay});
   }
+  res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString, queueIDNum, queueID});
   console.log("Message Sending Now");
   console.log("Recipient: "+ recipient);
   console.log("Message Contents: "+ message);
   console.log("Delay: "+ delay);
   console.log("QueueID: "+ queueID);
   console.log("SendTime: "+ sendTime);
+  console.log(msgQueueIDs)
 });
 
 app.post('/api/undo', function(req,res){
   // Save the command and the send id
   var command = req.body.command
   var queueID = req.body.queueID;
-  var my_job;
+  var my_job = queueID.toString()
   if (command == "cancel")
   {
     msgJob = schedule.scheduledJobs[queueID];
