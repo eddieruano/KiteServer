@@ -66,14 +66,14 @@ app.post('/api/send', function(req,res){
       }
       var delayed = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
       message = message + delayed;
-      //deliver(recipient,message);
+      deliver(recipient,message);
       
       });
   }
   else
   {
     delayFlag = false;
-    //deliver(recipient,message);
+    deliver(recipient,message);
   }
   res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
   console.log("###########################################################");
