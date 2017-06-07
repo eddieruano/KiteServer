@@ -78,7 +78,7 @@ app.post('/api/send', function(req,res){
     // Create instance and add to Queue
     if (verbose == "True")
     {
-      message = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
+      message = message + "\n\n*This message was delayed by " +delay.toString()+" seconds*";
     }
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
     messPack.messagePrint(messPack);
