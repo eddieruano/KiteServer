@@ -45,7 +45,7 @@ app.get('/', function(req, res){
 app.post('/api/send', function(req,res){
   recipient = req.body.recipient;
   message = req.body.message;
-   
+  console.log(req);
   var delay = parseInt(req.body.delay);
   var queueID = parseInt(req.body.queueID);
 
@@ -82,6 +82,7 @@ app.post('/api/send', function(req,res){
   console.log("QueueID: "+ queueID);
   console.log("SendTime: "+ sendTime);
   console.log(msgQueueIDs);
+  console.log("");
 });
 
 app.post('/api/undo', function(req,res){
