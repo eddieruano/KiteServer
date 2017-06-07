@@ -57,7 +57,7 @@ var counter = 0;
   //!!################### Initialize Main API Send  ###################!!//
 app.post('/api/send', function(req,res){
   // Save the time at which this message was received
-  var start = new Date(Date.now());
+  var startTime = new Date(Date.now());
   // Get all relevant data from the post
   var status;
   var recipient = req.body.recipient;
