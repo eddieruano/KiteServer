@@ -85,7 +85,10 @@ app.post('/api/send', function(req,res){
     
     // SCHEDULE THE JOB
     messPack.queueID = scheduler.scheduleJob(sendTime, function(){
+      console.log("R: " + messPack.messageRecipient);
+      console.log("T: " + messPack.messageText);
       console.log("Sent Message: " + this.name);
+
       deliver(messPack.messageRecipient, messPack.messageText);
     });
     messQueue.queueAdd(messQueue, messPack);
