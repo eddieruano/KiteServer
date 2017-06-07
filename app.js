@@ -89,13 +89,13 @@ app.post('/api/send', function(req,res){
 
 app.post('/api/undo', function(req,res){
   // Save the command and the send id
-  var command = req.body.command
+  var command = req.body.command;
   var queueID = req.body.queueID;
-  var my_job = req.body.queueID.toString()
+  var my_job = req.body.queueID.toString();
   if (command == "cancel")
   {
     msgJob = schedule.scheduledJobs[queueID];
-    msgJob.cancel()
+    msgJob.cancel();
     console.log("Message canceled");
   }
   else if (command == "changeDelay")
@@ -108,7 +108,7 @@ app.post('/api/undo', function(req,res){
   }
   else
   {
-    console.log("Error with command")
+    console.log("Error with command");
   }
   // reformulate the queue
   for(var i = msgQueueIDs.length - 1; i >= 0; i--) {
