@@ -88,7 +88,7 @@ app.post('/api/send', function(req,res){
       console.log("R: " + messPack.messageRecipient);
       console.log("T: " + messPack.messageText);
       console.log("Sent Message: " + this.name);
-      console.log("Q" + messPack.queueID);
+      console.log("Q" + messPack.queueID.name);
 
       deliver(messPack.messageRecipient, messPack.messageText);
     });
