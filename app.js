@@ -81,14 +81,14 @@ app.post('/api/send', function(req,res){
   console.log("Delay: "+ delay);
   console.log("QueueID: "+ queueID);
   console.log("SendTime: "+ sendTime);
-  console.log(msgQueueIDs)
+  console.log(msgQueueIDs);
 });
 
 app.post('/api/undo', function(req,res){
   // Save the command and the send id
   var command = req.body.command
   var queueID = req.body.queueID;
-  var my_job = queueID.toString()
+  var my_job = req.body.queueID.toString()
   if (command == "cancel")
   {
     msgJob = schedule.scheduledJobs[queueID];
@@ -103,6 +103,10 @@ app.post('/api/undo', function(req,res){
   {
 
   }
+  else
+  {
+    console.log("Error with command")
+  }
   // reformulate the queue
   for(var i = msgQueueIDs.length - 1; i >= 0; i--) {
     if(array[i] === queueID) {
@@ -114,8 +118,8 @@ app.post('/api/undo', function(req,res){
   {
     throw err;
   }
-   scheduler.cancel();
-   res.json({status: "Success Cancel", queueID: queueID, messageText: "Lol"});
+  res.json({status: "Success", message: message, delayed: delay, jobNum: my_job, queueIDNum: queueID});
+  console.log(msgQueueIDs);
 });
 
 function deliver(recipient, message){
