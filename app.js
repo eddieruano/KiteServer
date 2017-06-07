@@ -94,7 +94,7 @@ app.post('/api/send', function(req,res){
     });
     messQueue.queueAdd(messQueue, messPack);
     res.json(
-        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: messPack.queueID}
+        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: messPack.queueID.name}
         );
   }
   else 
