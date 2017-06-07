@@ -33,7 +33,7 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 
 // // adds an object to the queue
 MessagePackage.prototype.messagePrint = function(mess) {
-	console.log("Status: " + mess.Status);
+	console.log("Status: " + mess.messageStatus);
 	console.log("Recipient: " + mess.messageRecipient);
 	console.log("Text: " + mess.messageText);
 	console.log("QueueID: " + mess.messageQueueID);
