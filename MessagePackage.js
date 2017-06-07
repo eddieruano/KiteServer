@@ -10,13 +10,13 @@ var count = require('word-count')
 function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	this.messageStatus = (status == null) ? null : status;
 	this.messageRecipient = (rec == null) ? null : rec;
-	this.messageText = (texy == null) ? null : text;
+	this.messageText = (text == null) ? null : text;
 	this.messageQueueID = (id == null) ? null : id;
 	this.messageTimeIn = (t_in == null) ? null : t_in;
 	this.messageTimeOut = t_out;
 	this.messageDelay  = (delay == null) ? null : delay;
 	this.messageVerbose = verFlag;
-	this.messageWordCount  = (text == null) ? null : count(text);
+	this.messageWordCount = (text == null) ? null : count(text);
 }
 
 // adds an object to the queue
