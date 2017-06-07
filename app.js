@@ -90,13 +90,16 @@ app.post('/api/send', function(req,res){
   }
   if (delay == 0)
   {
-    deliver(recipient, message)
-    {
-      imess.sendMessage(recipient, message);
-    }
-    res.json(
+    deliver(recipient, message, function(){
+      if (err) {
+        console.log(err);
+      }
+      res.json(
       {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
       );
+
+    });
+    
   }
   else
   {
@@ -176,7 +179,7 @@ app.post('/api/undo', function(req,res){
 });
 
 function deliver(recipient, message){
-   imess.sendMessage(recipient, message);
+   iMessageMod.sendMessage(recipient, message);
 }
 
 function renderQueueID(message){
