@@ -83,8 +83,9 @@ app.post('/api/send', function(req,res){
     messPack.messagePrint(messPack);
     messQueue.queueAdd(messQueue, messPack);
     // SCHEDULE THE JOB
-    scheduler.scheduleJob(messPack.queueID, messPack.sendTime, function(){
-      console.log("Done")
+    scheduler.scheduleJob(messPack.queueID, messPack.sendTime, function(y){
+      console.log("Done");
+      deliver(messPack.messageRecipient,messPack.messageText);
     });
     res.json(
         {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
@@ -104,7 +105,7 @@ app.post('/api/send', function(req,res){
         if (err) {
           console.log(err);
         }
-        deliver(recipient,message);
+        
         res.json(
         {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
         );
