@@ -10,6 +10,7 @@ var scheduler = require('node-schedule');
 var iMessageMod = require("iMessageModule");
   // Begin Custom modules
 var MessPackage = require('./MessagePackage.js').MessagePackage;
+var MessageQueue= require('./MessageQueue.js').MessageQueue;
 
   //!!################### Initialize Middleware Express ###################!!//
 var port = process.env.PORT || 9000;    // create, sign, and verify tokens
