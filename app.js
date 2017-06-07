@@ -51,7 +51,7 @@ app.get('/', function(req, res){
 // Get information on the queue //
 //app.get('/api/getQueue', function(req, res){
 
-
+var counter = 0;
 //});
   //!!################### Initialize Main API Send  ###################!!//
 app.post('/api/send', function(req,res){
@@ -168,6 +168,10 @@ app.post('/api/undo', function(req,res){
 
 function deliver(recipient, message){
    imess.sendMessage(recipient, message);
+}
+
+function renderQueueID(message){
+   return counter += 1;
 }
 
 app.listen(port);
