@@ -56,7 +56,6 @@ var counter = 0;
 //});
   //!!################### Initialize Main API Send  ###################!!//
 app.post('/api/send', function(req,res){
-  var messPack;
   // Save the time at which this message was received
   var start = new Date(Date.now());
   // Get all relevant data from the post
@@ -75,7 +74,7 @@ app.post('/api/send', function(req,res){
     // Calculate the new time to send
     sendTime = new Date(start.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
-    messPack = new MessPackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
     messQueue.queueAdd(messPack);
   }
   else {
@@ -86,7 +85,7 @@ app.post('/api/send', function(req,res){
     // Sending the message now essentially
     sendTime = startTime;
     // Create the instance but don't add it to the queue
-    messPack = new MessPackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
   }
 
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
