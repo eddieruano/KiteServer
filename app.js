@@ -151,7 +151,7 @@ app.post('/api/undo', function(req,res){
   var my_job = req.body.queueID.toString();
   if (command == "cancel")
   {
-    msgJob = schedule.scheduledJobs[queueID];
+    msgJob = scheduler.scheduledJobs[queueID];
     msgJob.cancel();
     console.log("Message canceled");
   }
