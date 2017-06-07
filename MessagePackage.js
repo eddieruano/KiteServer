@@ -17,19 +17,19 @@ function MessagePackage(status, rec, text, id, t_in, t_out, delay, verFlag) {
 	this.messageDelay  = (delay == null) ? null : delay;
 	this.messageVerbose = verFlag;
 	this.messageWordCount  = (text == null) ? null : count(text);
-
-	// adds an object to the queue
-	MessagePackage.prototype.messagePrint = function(mess) {
-		console.log("Status: " + mess.Status);
-		console.log("Recipient: " + mess.messageRecipient);
-		console.log("Text: " + mess.messageText);
-		console.log("QueueID: " + mess.messageQueueID);
-		console.log("Time In: " + mess.messageTimeIn);
-		console.log("Time Out: " + mess.messageTimeOut);
-		console.log("Delay: " + mess.messageDelay);
-		console.log("Verbose: " + mess.messageVerbose);
-		console.log("Word Count: " + mess.messageWordCount);
-	};
 }
+
+// adds an object to the queue
+MessagePackage.prototype.messagePrint = function(mess) {
+	console.log("Status: " + mess.Status);
+	console.log("Recipient: " + mess.messageRecipient);
+	console.log("Text: " + mess.messageText);
+	console.log("QueueID: " + mess.messageQueueID);
+	console.log("Time In: " + mess.messageTimeIn);
+	console.log("Time Out: " + mess.messageTimeOut);
+	console.log("Delay: " + mess.messageDelay);
+	console.log("Verbose: " + mess.messageVerbose);
+	console.log("Word Count: " + mess.messageWordCount);
+};
 // export the class
 exports.MessagePackage = MessagePackage;
