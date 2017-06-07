@@ -90,7 +90,7 @@ app.post('/api/send', function(req,res){
 
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   console.log("MessPack Print: ");
-  messPack.MessagePrint(messPack);
+  messPack.messagePrint(messPack);
   console.log("MessageQueue Print: ")
   //messQueue.queuePrint(messQueue);
   // Begin Send logic
