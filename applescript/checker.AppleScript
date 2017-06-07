@@ -13,6 +13,6 @@ tell application "System Events"
     set menustuff to entire contents of menu bar 1
   end tell
 end tell
-return winstuff & "rrrr" & menustuff -- comment this out to get just winstuff
+--return winstuff & "rrrr" & menustuff -- comment this out to get just winstuff
 return winstuff -- comment this out too to get just menustuff
-return menustuff
+--return menustuff
