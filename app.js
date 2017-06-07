@@ -61,37 +61,37 @@ app.post('/api/send', function(req,res){
   // Get all relevant data from the post
   var status;
   var recipient = req.body.recipient;
-  var message = req.body.payload;
+  var message = req.body.message;
   var delay = parseInt(req.body.delay);
   var verbose = req.body.verbose;
   var queueID;
   var sendTime; 
   // Create a queue ID based on recipient and time
   if (delay > 0) {
-    status = "Queued"
+    status = "Queued";
     // Creates a new QueueID for the message package
     queueID = renderQueueID(recipient, message, delay);
     // Calculate the new time to send
     sendTime = new Date(startTime.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay);
     //messQueue.queueAdd(messPack);
   }
   else {
     // Set status
-    status = "Direct"
+    status = "Direct";
     // Set to ignore on the queueID
     queueID = -1;
     // Sending the message now essentially
     sendTime = startTime;
     // Create the instance but don't add it to the queue
-    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay)
+    messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay);
   }
 
-  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
   console.log("MessPack Print: ");
   messPack.messagePrint(messPack);
-  console.log("MessageQueue Print: ")
+  console.log("MessageQueue Print: ");
   //messQueue.queuePrint(messQueue);
   // Begin Send logic
   // if (delay != 0)
