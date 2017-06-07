@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 var message;
 var recipient;
 
-var port = process.env.PORT || 8080;    // create, sign, and verify tokens
+var port = process.env.PORT || 9000;    // create, sign, and verify tokens
 //mongoose.connect(config.database);      // connect to database
 //app.set('superSecret', config.secret);  // secret variable
 
