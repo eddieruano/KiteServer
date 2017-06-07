@@ -65,20 +65,33 @@ app.post('/api/send', function(req,res){
   var delay = parseInt(req.body.delay);
   var verbose = req.body.verbose;
   var queueID;
-  var sendTime; 
+  var sendTime;
   // Create a queue ID based on recipient and time
-  if (delay > 0) {
+  if (delay > 0) 
+  {
     status = "Queued";
     // Creates a new QueueID for the message package
     queueID = renderQueueID(recipient, message, delay);
     // Calculate the new time to send
     sendTime = new Date(startTime.getTime() + (delay * 1000)); 
     // Create instance and add to Queue
+    if (verbose == "True")
+    {
+      message = "\n\n*This message was delayed by " +delay.toString()+" seconds*";
+    }
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
     messPack.messagePrint(messPack);
     messQueue.queueAdd(messQueue, messPack);
+    // SCHEDULE THE JOB
+    scheduler.scheduleJob(messPack.queueID, messPack.sendTime, function(){
+      console.log("Done")
+    });
+    res.json(
+        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
+        );
   }
-  else {
+  else 
+  {
     // Set status
     status = "Direct";
     // Set to ignore on the queueID
@@ -87,24 +100,15 @@ app.post('/api/send', function(req,res){
     sendTime = startTime;
     // Create the instance but don't add it to the queue
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
-  }
-  if (delay == 0)
-  {
     deliver(recipient, message, function(){
-      if (err) {
-        console.log(err);
-      }
-      res.json(
-      {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
-      );
-
-    });
-    
-  }
-  else
-  {
-
-  }
+        if (err) {
+          console.log(err);
+        }
+        res.json(
+        {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
+        );
+      });
+    }
   // Begin Send logic
   // if (delay != 0)
   // {
@@ -128,16 +132,8 @@ app.post('/api/send', function(req,res){
   //   delayFlag = false;
   //   //deliver(recipient,message);
   // }
-  res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
-  // console.log("###########################################################");
-  // console.log("Message Sending Now");
-  // console.log("Recipient: "+ recipient);
-  // console.log("Message Contents: "+ message);
-  // console.log("Delay: "+ delay);
-  // console.log("QueueID: "+ queueID);
-  // console.log("SendTime: "+ sendTime);
-  // //console.log(msgQueueIDs);
-  console.log("");
+  //res.json({status: "Success", message: message, delayed: delay, queueID: queueID.toString(), queueIDNum: queueID});
+  console.log("DONE ONE");
 });
 
 app.post('/api/undo', function(req,res){
