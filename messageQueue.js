@@ -24,10 +24,10 @@ MessageQueue.prototype.queuePrint = function(queue) {
 	console.log("Contents: " + queue.messageQueueArray);
 };
 
-MessageQueue.prototype.queueAdd = function(queue, mess) {
+MessageQueue.prototype.queueAdd = function(queue, obj) {
 	console.log("Size: " + queue.messageQueueSize);
 	console.log("Contents: " + queue.messageQueueArray);
-	queue.messageQueueArray.push(mess);
+	queue.messageQueueArray.push(obj);
 	queue.messageQueueSize += 1;
 };
 // export the class
