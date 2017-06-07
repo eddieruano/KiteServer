@@ -61,7 +61,7 @@ app.post('/api/send', function(req,res){
   // Get all relevant data from the post
   var status;
   var recipient = req.body.recipient;
-  var message = req.body.message;
+  var message = req.body.payload;
   var delay = parseInt(req.body.delay);
   var verbose = req.body.verbose;
   var queueID;
@@ -81,12 +81,13 @@ app.post('/api/send', function(req,res){
     }
     messPack = new MessagePackage(status, recipient, message, queueID, startTime, sendTime, delay, verbose);
     messPack.messagePrint(messPack);
-    messQueue.queueAdd(messQueue, messPack);
+    
     // SCHEDULE THE JOB
-    scheduler.scheduleJob(messPack.queueID, messPack.sendTime, function(y){
-      console.log("Done");
-      deliver(messPack.messageRecipient,messPack.messageText);
+    messPack.queueID = scheduler.scheduleJob(messPack.sendTime, function(y){
+      console.log("Sent Message: " + this.name);
+      deliver(messPack.messageRecipient, messPack.messageText);
     });
+    messQueue.queueAdd(messQueue, messPack);
     res.json(
         {status: "Success", recipient: recipient, message: message, delayed: delay, sendTime:  sendTime, queueID: queueID}
         );
